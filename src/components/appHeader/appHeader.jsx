@@ -1,5 +1,5 @@
 import React from "react";
-import appHeaderStyles from "./appHeader.mobule.css";
+import appHeaderStyles from "./appHeader.module.css";
 import {
   Logo,
   BurgerIcon,
@@ -10,21 +10,23 @@ class Header extends React.Component {
   render() {
     return (
       <header className={appHeaderStyles.header}>
-        <nav>
-          <a>
-            <BurgerIcon type="primary" />
-            <span>Конструктор</span>
+        <div className={appHeaderStyles.box}>
+          <nav className={appHeaderStyles.links}>
+            <a href="#" className= {appHeaderStyles.link}>
+              <BurgerIcon type="primary" />
+              <p className="text text_type_main-default ml-2">Конструктор</p>
+            </a>
+            <a href="#" className= {`${appHeaderStyles.link} text text_type_main-default`}>
+              <ListIcon type="secondary" />
+              <span className="text text_type_main-default ml-2 text_color_inactive">Лента заказов</span>
+            </a>
+          </nav>
+          <Logo />
+          <a href="#" className= {`${appHeaderStyles.link} text text_type_main-default`}>
+            <ProfileIcon type="secondary" />
+            <span className="text text_type_main-default ml-2 text_color_inactive">Личный кабинет</span>
           </a>
-          <a>
-            <ListIcon type="secondary" />
-            <span>Лента заказов</span>
-          </a>
-        </nav>
-        <Logo />
-        <a>
-          <ProfileIcon type="secondary" />
-          <span>Личный кабинет</span>
-        </a>
+        </div>
       </header>
     );
   }
