@@ -6,9 +6,10 @@ function App() {
   return (
     <div className={styles.app}>
       	<Header/>
-        <main>
+        {/* <main>
           <BurgerIngredients/>
-        </main>
+        </main> */}
+        <div>dfjaldkj</div>
     </div>
   );
 }
