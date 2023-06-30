@@ -38,9 +38,9 @@ const BurgerIngredients = ({ data }) => {
           Начинка
         </Tab>
       </div>
-      <div className="custom-scroll" style={{height: 756}} id="bun">
+      <div className={`${burgerIngredientsStyles.components}custom-scroll`} id="bun">
         <h2 className="text text_type_main-medium">Булки</h2>
-        <ul className={burgerIngredientsStyles.components}>
+        <ul className={burgerIngredientsStyles.component}>
           <article className={burgerIngredientsStyles.card}>
             <Counter count={1} size="default" extraClass="m-1" />
             <img

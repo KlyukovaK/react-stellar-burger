@@ -6,6 +6,9 @@
 	margin: 20px 0 40px;
 }
 .components{
+	overflow: hidden;
+}
+.component{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	column-gap: 24px;
