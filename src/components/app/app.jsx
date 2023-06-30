@@ -9,7 +9,6 @@ function App() {
         {/* <main>
           <BurgerIngredients/>
         </main> */}
-        <div>dfjaldkj</div>
     </div>
   );
 }
