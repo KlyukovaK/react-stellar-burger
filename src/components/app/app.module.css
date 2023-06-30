@@ -5,3 +5,11 @@
   background-color: #131316;
   color: #f2f2f3;
 }
+.main{
+  display: grid;
+  margin: 0 auto 40px;
+  padding: 0 40px;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1240px;
+}
