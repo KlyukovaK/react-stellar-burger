@@ -22,10 +22,10 @@
   margin: 16px 0 16px 20px;
   align-content: center;
   display: flex;
-  text-decoration:none;
+  text-decoration: none;
   justify-content: space-between;
   list-style-type: none;
-  color: #F2F2F3;
+  color: #f2f2f3;
 }
 .link:hover {
   opacity: 0.6;

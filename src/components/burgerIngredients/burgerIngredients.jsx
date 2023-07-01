@@ -1,12 +1,13 @@
 import React from "react";
-import burgerIngredientsStyles from "./burgerIngredients.module.css";
-// import { data } from "../../utils/data.js";
 import {
   CurrencyIcon,
   Counter,
   Tab,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-const BurgerIngredients = ({ data }) => {
+import burgerIngredientsStyles from "./burgerIngredients.module.css";
+// import { data } from "../../utils/data.js";
+
+function BurgerIngredients() {
   const [current, setCurrent] = React.useState("one");
 
   return (
@@ -38,7 +39,10 @@ const BurgerIngredients = ({ data }) => {
           Начинка
         </Tab>
       </div>
-      <div className={`${burgerIngredientsStyles.components}custom-scroll`} id="bun">
+      <div
+        className={`${burgerIngredientsStyles.components}custom-scroll`}
+        id="bun"
+      >
         <h2 className="text text_type_main-medium">Булки</h2>
         <ul className={burgerIngredientsStyles.component}>
           <article className={burgerIngredientsStyles.card}>
@@ -142,18 +146,17 @@ const BurgerIngredients = ({ data }) => {
       <div id="sauce">
         <h2 className="text text_type_main-medium">Соусы</h2>
         <ul>
-          <li></li>
-          <li></li>
+          <li>gg</li>
         </ul>
       </div>
       <div id="filling">
         <h2 className="text text_type_main-medium">Начинка</h2>
         <ul>
-          <li></li>
-          <li></li>
+          <li>gg</li>
+          <li>gg</li>
         </ul>
       </div>
     </section>
   );
-};
+}
 export default BurgerIngredients;
