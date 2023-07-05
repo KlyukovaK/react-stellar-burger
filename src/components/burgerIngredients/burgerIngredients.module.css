@@ -6,22 +6,14 @@
   margin: 20px 0 40px;
 }
 .components {
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-width: 600px;
+  height: 710px;
 }
 .component {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 24px;
   row-gap: 32px;
-}
-.card {
-  position: relative;
-  width: 272px;
-  margin: 24px 0 40px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.name {
-  height: 48px;
 }
