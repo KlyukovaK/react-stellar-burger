@@ -6,27 +6,23 @@ import BurgerConstructor from "../burgerConstructor/burgerConctructor";
 
 const Url = "https://norma.nomoreparties.space/api/ingredients";
 function App() {
-  const [state, setState] = React.useState({
-    isLoading: false,
-    data: [],
-  });
+  const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
-    setState({ ...state, isLoading: true });
     fetch(Url)
       .then((res) => res.json())
-      .then((data) => setState({ ...state, data, isLoading: false }))
+      .then((res) => setData(res.data))
       .catch((err) => {
         console.log(err);
       });
-  }, [setState]);
+  }, []);
 
   return (
     <div className={styles.app}>
       <Header />
       <main className={styles.main}>
-        <BurgerIngredients data={state} />
-        <BurgerConstructor />
+        <BurgerIngredients data={data} />
+        <BurgerConstructor data={data} />
       </main>
     </div>
   );

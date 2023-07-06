@@ -30,10 +30,6 @@ function Ingredient({ name, image, price }) {
   );
 }
 
-Ingredient.propTypes = {
-  name: ingredientPropType.isRequired,
-  image: ingredientPropType.isRequired,
-  price: ingredientPropType.isRequired,
-};
+Ingredient.propTypes = ingredientPropType.isRequired;
 
 export default Ingredient;

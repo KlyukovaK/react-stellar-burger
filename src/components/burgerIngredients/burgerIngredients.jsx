@@ -6,7 +6,6 @@ import burgerIngredientsStyles from "./burgerIngredients.module.css";
 import Ingredient from "../ingredient/ingredient";
 
 function BurgerIngredients({ data }) {
-  console.log({ data });
   const [current, setCurrent] = React.useState("one");
   return (
     <section className={burgerIngredientsStyles.section}>
@@ -42,21 +41,21 @@ function BurgerIngredients({ data }) {
           Булки
         </h2>
         <ul className={burgerIngredientsStyles.component}>
-          {{ data }.map(
+          {data.map(
             (item) =>
               item.type === "bun" && <Ingredient {...item} key={item._id} />,
           )}
         </ul>
         <h2 className="text text_type_main-medium">Соусы</h2>
         <ul className={burgerIngredientsStyles.component}>
-          {{ data }.map(
+          {data.map(
             (item) =>
               item.type === "sauce" && <Ingredient {...item} key={item._id} />,
           )}
         </ul>
         <h2 className="text text_type_main-medium">Начинка</h2>
         <ul className={burgerIngredientsStyles.component}>
-          {{ data }.map(
+          {data.map(
             (item) =>
               item.type === "main" && <Ingredient {...item} key={item._id} />,
           )}
@@ -65,7 +64,7 @@ function BurgerIngredients({ data }) {
     </section>
   );
 }
-BurgerIngredients.PropTypes = {
-  data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropType).isRequired,
 };
 export default BurgerIngredients;

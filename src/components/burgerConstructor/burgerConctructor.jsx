@@ -1,13 +1,14 @@
+import PropTypes from "prop-types";
 import {
   Button,
   ConstructorElement,
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import ingredientPropType from "../../utils/prop-types";
 import burgerConstructorStyles from "./burgerConstructor.module.css";
-import data from "../../utils/data";
 
-function BurgerConstructor() {
+function BurgerConstructor({ data }) {
   function calculationSumа() {
     let sum = 0;
     data.forEach((item) => {
@@ -68,5 +69,9 @@ function BurgerConstructor() {
     </section>
   );
 }
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropType).isRequired,
+};
 
 export default BurgerConstructor;
