@@ -8,7 +8,7 @@ import {
 import ingredientPropType from "../../utils/prop-types";
 import burgerConstructorStyles from "./burgerConstructor.module.css";
 
-function BurgerConstructor({ data }) {
+function BurgerConstructor({ data, setOrderId }) {
   function calculationSumа() {
     let sum = 0;
     data.forEach((item) => {
@@ -16,6 +16,10 @@ function BurgerConstructor({ data }) {
     });
     return sum;
   }
+  // изменение стейта для открытия popup
+  const handleClick = () => {
+    setOrderId("685314687");
+  };
 
   const arrBun = data
     .filter((item) => item.type === "bun")
@@ -62,7 +66,12 @@ function BurgerConstructor({ data }) {
           </p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="medium">
+        <Button
+          htmlType="button"
+          type="primary"
+          size="medium"
+          onClick={handleClick}
+        >
           Оформить заказ
         </Button>
       </div>
@@ -72,6 +81,7 @@ function BurgerConstructor({ data }) {
 
 BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(ingredientPropType).isRequired,
+  setOrderId: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;

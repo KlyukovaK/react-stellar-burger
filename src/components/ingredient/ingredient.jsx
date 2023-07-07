@@ -6,17 +6,19 @@ import {
 import ingredientPropType from "../../utils/prop-types";
 import ingredientsStyles from "./ingredient.module.css";
 
-function Ingredient({ name, image, price }) {
-  // const [count, setCount] = React.useState(0);
-  // const onClick = () => {
-  //   setCount(count + 1);
-  // };
-  // React.useEffect(() => {
-  //   document.querySelector("card").addEventListener("click", onClick);
-  // });
+function Ingredient({ itemData, setIngredientModal }) {
+  const { name, image, price } = itemData;
+
+  const handleClick = () => {
+    setIngredientModal(itemData);
+  };
 
   return (
-    <article className={ingredientsStyles.card}>
+    <article
+      className={ingredientsStyles.card}
+      aria-hidden="true"
+      onMouseDown={handleClick}
+    >
       <Counter count={1} size="default" extraClass="m-1" />
       <img src={image} alt={name} />
       <div className="mt-1 mb-1" style={{ display: "flex" }}>

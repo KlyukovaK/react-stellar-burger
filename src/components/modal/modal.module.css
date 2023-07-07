@@ -1,0 +1,33 @@
+.container {
+  position: fixed;
+  display: flex;
+  box-sizing: border-box;
+  top: 25vh;
+  left: 25vw;
+  z-index: 2;
+  align-items: center;
+  flex-direction: column;
+  width: 720px;
+  background-color: #131316;
+  border-radius: 40px;
+  padding: 0;
+  margin: 0;
+}
+.main {
+  margin: 40px 40px 0;
+  width: 580px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.button {
+  border: none;
+  background-size: cover;
+  background-color: #131316;
+  padding: 0;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.button:hover {
+  opacity: 0.6;
+}

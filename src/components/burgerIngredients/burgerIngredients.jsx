@@ -5,8 +5,9 @@ import ingredientPropType from "../../utils/prop-types";
 import burgerIngredientsStyles from "./burgerIngredients.module.css";
 import Ingredient from "../ingredient/ingredient";
 
-function BurgerIngredients({ data }) {
+function BurgerIngredients({ data, setIngredientModal }) {
   const [current, setCurrent] = React.useState("one");
+
   return (
     <section className={burgerIngredientsStyles.section}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
@@ -43,21 +44,40 @@ function BurgerIngredients({ data }) {
         <ul className={burgerIngredientsStyles.component}>
           {data.map(
             (item) =>
-              item.type === "bun" && <Ingredient {...item} key={item._id} />,
+              item.type === "bun" && (
+                <Ingredient
+                  itemData={item}
+                  key={item._id}
+                  aria-hidden="true"
+                  setIngredientModal={setIngredientModal}
+                />
+              ),
           )}
         </ul>
         <h2 className="text text_type_main-medium">Соусы</h2>
         <ul className={burgerIngredientsStyles.component}>
           {data.map(
             (item) =>
-              item.type === "sauce" && <Ingredient {...item} key={item._id} />,
+              item.type === "sauce" && (
+                <Ingredient
+                  itemData={item}
+                  key={item._id}
+                  setIngredientModal={setIngredientModal}
+                />
+              ),
           )}
         </ul>
         <h2 className="text text_type_main-medium">Начинка</h2>
         <ul className={burgerIngredientsStyles.component}>
           {data.map(
             (item) =>
-              item.type === "main" && <Ingredient {...item} key={item._id} />,
+              item.type === "main" && (
+                <Ingredient
+                  itemData={item}
+                  key={item._id}
+                  setIngredientModal={setIngredientModal}
+                />
+              ),
           )}
         </ul>
       </div>
@@ -66,5 +86,6 @@ function BurgerIngredients({ data }) {
 }
 BurgerIngredients.propTypes = {
   data: PropTypes.arrayOf(ingredientPropType).isRequired,
+  setIngredientModal: PropTypes.func.isRequired,
 };
 export default BurgerIngredients;

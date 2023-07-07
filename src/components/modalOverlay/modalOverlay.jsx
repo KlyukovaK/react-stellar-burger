@@ -1,17 +1,18 @@
-import React from "react";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+import modalOverlayStyles from "./modalOverlay.module.css";
 
-const modalRoot = document.getElementById("react-modals");
-class modalOverlay extends React.Component {
-  render() {
-    const { onClose } = this.props;
-    return ReactDOM.createPortal(
-      <div>
-        <button>
-          <CloseIcon type="primary" />
-        </button>
-      </div>,
-      modalRoot,
-    );
-  }
+function ModalOverlay({ closePopup }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={modalOverlayStyles.overlay}
+      onMouseDown={closePopup}
+    />
+  );
 }
+
+ModalOverlay.propTypes = {
+  closePopup: PropTypes.func.isRequired,
+};
+
+export default ModalOverlay;
