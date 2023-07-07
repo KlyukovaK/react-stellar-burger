@@ -6,31 +6,31 @@ import burgerIngredientsStyles from "./burgerIngredients.module.css";
 import Ingredient from "../ingredient/ingredient";
 
 function BurgerIngredients({ data, setIngredientModal }) {
-  const [current, setCurrent] = React.useState("one");
+  const [current, setCurrent] = React.useState("bun");
 
   return (
     <section className={burgerIngredientsStyles.section}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div className={burgerIngredientsStyles.tab} style={{ display: "flex" }}>
         <Tab
-          value="one"
-          active={current === "one"}
+          value="bun"
+          active={current === "bun"}
           onClick={setCurrent}
           href="#bun"
         >
           Булки
         </Tab>
         <Tab
-          value="two"
-          active={current === "two"}
+          value="sauce"
+          active={current === "sauce"}
           onClick={setCurrent}
           href="#sauce"
         >
           Соусы
         </Tab>
         <Tab
-          value="three"
-          active={current === "three"}
+          value="filling"
+          active={current === "filling"}
           onClick={setCurrent}
           href="#filling"
         >
@@ -38,7 +38,7 @@ function BurgerIngredients({ data, setIngredientModal }) {
         </Tab>
       </div>
       <div className={`${burgerIngredientsStyles.components} custom-scroll`}>
-        <h2 className="text text_type_main-medium" id="bun">
+        <h2 className="text text_type_main-medium mb-6" id="bun">
           Булки
         </h2>
         <ul className={burgerIngredientsStyles.component}>
@@ -54,7 +54,7 @@ function BurgerIngredients({ data, setIngredientModal }) {
               ),
           )}
         </ul>
-        <h2 className="text text_type_main-medium">Соусы</h2>
+        <h2 className="text text_type_main-medium mb-6 mt-10">Соусы</h2>
         <ul className={burgerIngredientsStyles.component}>
           {data.map(
             (item) =>
@@ -67,7 +67,7 @@ function BurgerIngredients({ data, setIngredientModal }) {
               ),
           )}
         </ul>
-        <h2 className="text text_type_main-medium">Начинка</h2>
+        <h2 className="text text_type_main-medium mb-6 mt-10">Начинка</h2>
         <ul className={burgerIngredientsStyles.component}>
           {data.map(
             (item) =>

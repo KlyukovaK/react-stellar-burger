@@ -24,19 +24,21 @@ function BurgerConstructor({ data, setOrderId }) {
   const arrBun = data
     .filter((item) => item.type === "bun")
     .map((item, i) => (
-      <ConstructorElement
-        type={i === 0 ? "top" : "bottom"}
-        isLocked="true"
-        text={`${item.name} ${i === 0 ? "(верх)" : "(низ)"}`}
-        price={item.price}
-        key={item._id}
-        thumbnail={item.image}
-      />
+      <div className="pr-3">
+        <ConstructorElement
+          type={i === 0 ? "top" : "bottom"}
+          isLocked="true"
+          text={`${item.name} ${i === 0 ? "(верх)" : "(низ)"}`}
+          price={item.price}
+          key={item._id}
+          thumbnail={item.image}
+        />
+      </div>
     ));
   return (
     <section className={burgerConstructorStyles.section}>
       <div
-        className={`${burgerConstructorStyles.components} custom-scroll`}
+        className={`${burgerConstructorStyles.components}`}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -45,18 +47,20 @@ function BurgerConstructor({ data, setOrderId }) {
         }}
       >
         {arrBun[0]}
-        {data
-          .filter((item) => item.type !== "bun")
-          .map((item) => (
-            <div className={burgerConstructorStyles.component} key={item._id}>
-              <DragIcon />
-              <ConstructorElement
-                text={item.name}
-                price={item.price}
-                thumbnail={item.image}
-              />
-            </div>
-          ))}
+        <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
+          {data
+            .filter((item) => item.type !== "bun")
+            .map((item) => (
+              <li className={burgerConstructorStyles.component} key={item._id}>
+                <DragIcon />
+                <ConstructorElement
+                  text={item.name}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </li>
+            ))}
+        </ul>
         {arrBun[1]}
       </div>
       <div className={burgerConstructorStyles.counts}>

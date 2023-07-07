@@ -6,17 +6,19 @@ import BurgerConstructor from "../burgerConstructor/burgerConctructor";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredientDetails/ingredientDetails";
 import OrderDetails from "../orderDetails/orderDetails";
+import getIngredients from "../../utils/burger-api";
 
 const Url = "https://norma.nomoreparties.space/api/ingredients";
+
 function App() {
   // подгрузка с api
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
-    fetch(Url)
-      .then((res) => res.json())
+    getIngredients(Url)
       .then((res) => setData(res.data))
       .catch((err) => {
+        setData(err);
         console.log(err);
       });
   }, []);
@@ -42,7 +44,7 @@ function App() {
       )}
 
       {ingredientModal && (
-        <Modal text="Детали " cleanModal={setIngredientModal}>
+        <Modal text="Детали игридиента" cleanModal={setIngredientModal}>
           <IngredientDetails ingredient={ingredientModal} />
         </Modal>
       )}
