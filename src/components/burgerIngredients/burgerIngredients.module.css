@@ -1,0 +1,21 @@
+.section {
+  max-width: 600px;
+  max-height: 912px;
+}
+.tab {
+  margin: 20px 0 40px;
+}
+.components {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-width: 600px;
+  height: 710px;
+}
+.component {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 32px;
+  padding: 0;
+  margin: 0;
+}
