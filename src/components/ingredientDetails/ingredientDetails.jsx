@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import ingredientDetailsStyle from "./ingredientDetails.module.css";
 import ingredientPropType from "../../utils/prop-types";
+import AppContext from "../../services/AppContext";
 
-function IngredientDetails({ ingredient }) {
+function IngredientDetails() {
+  const { addIngredientState } = useContext(AppContext);
+  const ingredient = addIngredientState.data;
   return (
     <>
       <img

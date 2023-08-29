@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import orderDetailsStyle from "./orderDetails.module.css";
 import done from "../../image/done.svg";
+import AppContext from "../../services/AppContext";
 
 function OrderDetails() {
+  const { orderNumber } = useContext(AppContext);
   return (
     <>
       <h2 className={`${orderDetailsStyle.title} text text_type_digits-large`}>
-        03456
+        {orderNumber}
       </h2>
       <p
         className={`${orderDetailsStyle.text} text text_type_main-medium mb-15`}
