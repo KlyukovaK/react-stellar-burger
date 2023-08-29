@@ -86,8 +86,5 @@ function BurgerIngredients() {
     </section>
   );
 }
-// BurgerIngredients.propTypes = {
-//   data: PropTypes.arrayOf(ingredientPropType).isRequired,
-//   setIngredientModal: PropTypes.func.isRequired,
-// };
+
 export default BurgerIngredients;
