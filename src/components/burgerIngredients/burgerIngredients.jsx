@@ -1,11 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredientPropType from "../../utils/prop-types";
+// import ingredientPropType from "../../utils/prop-types";
 import burgerIngredientsStyles from "./burgerIngredients.module.css";
 import Ingredient from "../ingredient/ingredient";
+import AppContext from "../../services/AppContext";
 
-function BurgerIngredients({ data, setIngredientModal }) {
+function BurgerIngredients() {
+  const { data, setIngredientModal } = React.useContext(AppContext);
   const [current, setCurrent] = React.useState("bun");
 
   return (
@@ -84,8 +86,8 @@ function BurgerIngredients({ data, setIngredientModal }) {
     </section>
   );
 }
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType).isRequired,
-  setIngredientModal: PropTypes.func.isRequired,
-};
+// BurgerIngredients.propTypes = {
+//   data: PropTypes.arrayOf(ingredientPropType).isRequired,
+//   setIngredientModal: PropTypes.func.isRequired,
+// };
 export default BurgerIngredients;
