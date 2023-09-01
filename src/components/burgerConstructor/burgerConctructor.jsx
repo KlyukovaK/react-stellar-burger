@@ -1,19 +1,16 @@
-import { useContext } from "react";
-// import PropTypes from "prop-types";
 import {
   Button,
   ConstructorElement,
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-// import ingredientPropType from "../../utils/prop-types";
+import { useSelector, useDispatch } from "react-redux";
 import burgerConstructorStyles from "./burgerConstructor.module.css";
-import AppContext from "../../services/AppContext";
+import { DELETE_INGREDIENTS } from "../../services/actions/burgerConstructor";
+import { getOrder } from "../../services/actions/orderDetails";
 
 function BurgerConstructor() {
-  const { setOrderId, addIngredientState, getOrder } = useContext(AppContext);
-  const ingredients = addIngredientState.ingredient;
-
+  const { ingredient } = useSelector((state) => state.ingredientsReducer);
   function calculationSumа(orders) {
     if (orders === undefined || orders.length === 0) {
       return 0;
@@ -25,11 +22,20 @@ function BurgerConstructor() {
       return acc + curr.price;
     }, 0);
   }
+  const getIdIngredient = ingredient.map((item) => item._id);
+  const dispatch = useDispatch();
+
+  const bun = ingredient
+    .filter((item) => item.type === "bun")
+    .map((item, i) => i === 0 && item);
+
+  const handleClickDelete = () => {
+    dispatch({ type: DELETE_INGREDIENTS });
+  };
 
   // изменение стейта для открытия popup
   const handleClick = () => {
-    setOrderId("685314687");
-    getOrder();
+    dispatch(getOrder(getIdIngredient));
   };
 
   return (
@@ -43,65 +49,52 @@ function BurgerConstructor() {
           alignItems: "end",
         }}
       >
-        {ingredients.length > 0 &&
-          ingredients
-            .filter((item) => item.type === "bun")
-            .map(
-              (item, i) =>
-                i === 0 && (
-                  <div className="pr-3">
-                    <ConstructorElement
-                      type="top"
-                      isLocked="true"
-                      text={`${item.name} (верх)`}
-                      price={item.price}
-                      key={item._id}
-                      thumbnail={item.image}
-                    />
-                  </div>
-                ),
-            )}
+        {bun.length > 0 && (
+          <div className="pr-3">
+            <ConstructorElement
+              type="top"
+              isLocked="true"
+              text={`${bun[0].name} (верх)`}
+              price={bun[0].price}
+              thumbnail={bun[0].image}
+            />
+          </div>
+        )}
         <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
-          {ingredients.length > 0 &&
-            ingredients
+          {ingredient.length > 0 &&
+            ingredient
               .filter((item) => item.type !== "bun")
               .map((item) => (
                 <li
                   className={burgerConstructorStyles.component}
-                  key={item._id}
+                  key={item.key}
                 >
                   <DragIcon />
                   <ConstructorElement
                     text={item.name}
                     price={item.price}
                     thumbnail={item.image}
+                    onClick={handleClickDelete}
                   />
                 </li>
               ))}
         </ul>
-        {ingredients.length > 0 &&
-          ingredients
-            .filter((item) => item.type === "bun")
-            .map(
-              (item, i) =>
-                i === 0 && (
-                  <div className="pr-3">
-                    <ConstructorElement
-                      type="bottom"
-                      isLocked="true"
-                      text={`${item.name} (низ)`}
-                      price={item.price}
-                      key={item._id}
-                      thumbnail={item.image}
-                    />
-                  </div>
-                ),
-            )}
+        {bun.length > 0 && (
+          <div className="pr-3">
+            <ConstructorElement
+              type="bottom"
+              isLocked="true"
+              text={`${bun[0].name} (низ)`}
+              price={bun[0].price}
+              thumbnail={bun[0].image}
+            />
+          </div>
+        )}
       </div>
       <div className={burgerConstructorStyles.counts}>
         <div className="mr-10" style={{ display: "flex" }}>
           <p className="text text_type_digits-default mr-2">
-            {calculationSumа(ingredients)}
+            {calculationSumа(ingredient)}
           </p>
           <CurrencyIcon type="primary" />
         </div>

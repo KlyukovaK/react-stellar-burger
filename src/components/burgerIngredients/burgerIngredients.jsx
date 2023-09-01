@@ -1,17 +1,45 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-// import ingredientPropType from "../../utils/prop-types";
+import { useInView } from "react-intersection-observer";
 import burgerIngredientsStyles from "./burgerIngredients.module.css";
 import Ingredient from "../ingredient/ingredient";
-import AppContext from "../../services/AppContext";
 
 function BurgerIngredients() {
-  const { data, setIngredientModal } = React.useContext(AppContext);
   const [current, setCurrent] = React.useState("bun");
 
+  const ingredients = useSelector(
+    (state) => state.ingredientsDataReducer.ingredients,
+  );
+
+  const [refBun, inViewBun] = useInView({
+    root: document.querySelector("#scrollArea"),
+    rootMargin: "-50px 0px",
+    threshold: 1,
+  });
+  const [refSause, inViewSause] = useInView({
+    root: document.querySelector("#scrollArea"),
+    rootMargin: "-50px 0px",
+    threshold: 1,
+  });
+  const [refFilling, inViewFilling] = useInView({
+    root: document.querySelector("#scrollArea"),
+    rootMargin: "-50px 0px",
+    threshold: 0.4,
+  });
+
+  React.useEffect(() => {
+    if (inViewBun) {
+      setCurrent("bun");
+    } else if (inViewSause) {
+      setCurrent("sauce");
+    } else if (inViewFilling) {
+      setCurrent("filling");
+    }
+  }, [inViewBun, inViewSause, inViewFilling]);
+
   return (
-    <section className={burgerIngredientsStyles.section}>
+    <section className={burgerIngredientsStyles.section} id="scrollArea">
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div className={burgerIngredientsStyles.tab} style={{ display: "flex" }}>
         <Tab
@@ -43,42 +71,29 @@ function BurgerIngredients() {
         <h2 className="text text_type_main-medium mb-6" id="bun">
           Булки
         </h2>
-        <ul className={burgerIngredientsStyles.component}>
-          {data.map(
+        <ul className={burgerIngredientsStyles.component} ref={refBun}>
+          {ingredients.map(
             (item) =>
               item.type === "bun" && (
-                <Ingredient
-                  itemData={item}
-                  key={item._id}
-                  aria-hidden="true"
-                  setIngredientModal={setIngredientModal}
-                />
+                <Ingredient itemData={item} key={item._id} aria-hidden="true" />
               ),
           )}
         </ul>
         <h2 className="text text_type_main-medium mb-6 mt-10">Соусы</h2>
-        <ul className={burgerIngredientsStyles.component}>
-          {data.map(
+        <ul className={burgerIngredientsStyles.component} ref={refSause}>
+          {ingredients.map(
             (item) =>
               item.type === "sauce" && (
-                <Ingredient
-                  itemData={item}
-                  key={item._id}
-                  setIngredientModal={setIngredientModal}
-                />
+                <Ingredient itemData={item} key={item._id} />
               ),
           )}
         </ul>
         <h2 className="text text_type_main-medium mb-6 mt-10">Начинка</h2>
-        <ul className={burgerIngredientsStyles.component}>
-          {data.map(
+        <ul className={burgerIngredientsStyles.component} ref={refFilling}>
+          {ingredients.map(
             (item) =>
               item.type === "main" && (
-                <Ingredient
-                  itemData={item}
-                  key={item._id}
-                  setIngredientModal={setIngredientModal}
-                />
+                <Ingredient itemData={item} key={item._id} />
               ),
           )}
         </ul>

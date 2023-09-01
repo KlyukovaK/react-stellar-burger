@@ -1,14 +1,13 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import orderDetailsStyle from "./orderDetails.module.css";
 import done from "../../image/done.svg";
-import AppContext from "../../services/AppContext";
 
 function OrderDetails() {
-  const { orderNumber } = useContext(AppContext);
+  const { order } = useSelector((state) => state.orderReducer);
   return (
     <>
       <h2 className={`${orderDetailsStyle.title} text text_type_digits-large`}>
-        {orderNumber}
+        {order}
       </h2>
       <p
         className={`${orderDetailsStyle.text} text text_type_main-medium mb-15`}

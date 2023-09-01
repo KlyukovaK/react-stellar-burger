@@ -1,16 +1,18 @@
-import { useContext } from "react";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import AppContext from "../../services/AppContext";
+import { useDispatch } from "react-redux";
 import ingredientPropType from "../../utils/prop-types";
 import ingredientsStyles from "./ingredient.module.css";
+import { addIngridient } from "../../services/actions/burgerConstructor";
+import { addIngredientDetail } from "../../services/actions/ingredientPopup";
+// import { POPUP_INGREDIENT_DETEAILS_OPEN } from "../../services/actions/modalIngredientDeteails";
 
 function Ingredient({ itemData }) {
-  const { addIngredientDispatcher } = useContext(AppContext);
+  const dispatch = useDispatch();
   const handleClick = () => {
-    addIngredientDispatcher({ type: "set", payload: itemData });
+    dispatch(addIngridient(itemData));
   };
 
   return (
@@ -19,9 +21,15 @@ function Ingredient({ itemData }) {
       aria-hidden="true"
       onClick={handleClick}
     >
-      <Counter count={1} size="default" extraClass="m-1" />
+      <Counter count={0} size="default" extraClass="m-1" />
       <img src={itemData.image} alt={itemData.name} />
-      <div className="mt-1 mb-1" style={{ display: "flex" }}>
+      <div
+        className="mt-1 mb-1"
+        style={{ display: "flex" }}
+        onMouseDown={() => dispatch(addIngredientDetail(itemData))}
+        role="button"
+        tabIndex={0}
+      >
         <p className="text text_type_digits-default mr-2">{itemData.price}</p>
         <CurrencyIcon type="primary" />
       </div>

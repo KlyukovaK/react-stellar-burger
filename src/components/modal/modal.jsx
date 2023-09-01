@@ -1,21 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import modalStyles from "./modal.module.css";
-import AppContext from "../../services/AppContext";
 import ModalOverlay from "../modalOverlay/modalOverlay";
+import { CLOSE_ORDER } from "../../services/actions/orderDetails";
+import { CLOSE_INGREDIENT_DETAIL } from "../../services/actions/ingredientPopup";
 
 const modalRoot = document.getElementById("react-modals");
 
 function Modal({ text, children }) {
-  const { addIngredientState, addIngredientDispatcher, setOrderId } =
-    useContext(AppContext);
-
+  const dispatch = useDispatch();
+  const { order } = useSelector((state) => state.orderReducer);
   const closePopup = () => {
-    if (addIngredientState.data !== null) {
-      addIngredientDispatcher({ type: "reset" });
+    if (order) {
+      dispatch({ type: CLOSE_ORDER });
     } else {
-      setOrderId(null);
+      dispatch({ type: CLOSE_INGREDIENT_DETAIL });
     }
   };
 

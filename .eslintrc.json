@@ -21,17 +21,33 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
-    "react/react-in-jsx-scope": ["off"],
-    "react/jsx-uses-react": ["off"],
-    "react/jsx-props-no-spreading": ["warn"],
-    "react/no-unescaped-entities": ["off"],
+    "react/react-in-jsx-scope": [
+      "off"
+    ],
+    "react/jsx-uses-react": [
+      "off"
+    ],
+    "react/jsx-props-no-spreading": [
+      "warn"
+    ],
+    "react/no-unescaped-entities": [
+      "off"
+    ],
+    "import/prefer-default-export": [
+      "off"
+    ],
     "no-underscore-dangle": [
       "error",
       {
         "allow": [
-          "_id"
+          "_id",
+          "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"
         ],
         "enforceInMethodNames": true,
         "allowAfterThis": true
