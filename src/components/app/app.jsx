@@ -1,5 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from "./app.module.css";
 import Header from "../appHeader/appHeader";
 import BurgerIngredients from "../burgerIngredients/burgerIngredients";
@@ -18,7 +20,6 @@ function App() {
   const { ingradientDetail } = useSelector(
     (state) => state.initialIngredientDetailReducer,
   );
-  console.log(ingradientDetail);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -28,17 +29,18 @@ function App() {
   return (
     <div className={styles.app}>
       <Header />
-
-      <main className={styles.main}>
-        {ingredientFaild && <p>Произошла ошибка при получении данных</p>}
-        {ingredientRequest && <p>Загрузка...</p>}
-        {ingredients && (
-          <>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </>
-        )}
-      </main>
+      <DndProvider backend={HTML5Backend}>
+        <main className={styles.main}>
+          {ingredientFaild && <p>Произошла ошибка при получении данных</p>}
+          {ingredientRequest && <p>Загрузка...</p>}
+          {ingredients && (
+            <>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </>
+          )}
+        </main>
+      </DndProvider>
       {order && (
         <Modal text=" ">
           <OrderDetails />

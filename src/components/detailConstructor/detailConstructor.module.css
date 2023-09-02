@@ -1,0 +1,6 @@
+.component {
+  display: grid;
+  grid-template-columns: 24px 536px;
+  column-gap: 8px;
+  align-items: center;
+}

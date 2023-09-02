@@ -2,44 +2,70 @@ import {
   Button,
   ConstructorElement,
   CurrencyIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
 import burgerConstructorStyles from "./burgerConstructor.module.css";
-import { DELETE_INGREDIENTS } from "../../services/actions/burgerConstructor";
+import {
+  addIngridient,
+  CHANGE_BUN,
+  MOVE_ELEMENT,
+} from "../../services/actions/burgerConstructor";
 import { getOrder } from "../../services/actions/orderDetails";
+import DetailConstructor from "../detailConstructor/detailConstructor";
 
 function BurgerConstructor() {
-  const { ingredient } = useSelector((state) => state.ingredientsReducer);
-  function calculationSumа(orders) {
-    if (orders === undefined || orders.length === 0) {
+  const { bun, ingredient } = useSelector((state) => state.ingredientsReducer);
+  const allIngredient = [...bun, ...ingredient];
+  const getIdIngredient = allIngredient.map((item) => item._id);
+
+  const totalPrice = useMemo(() => {
+    if (allIngredient.length === 0) {
       return 0;
     }
-    return orders.reduce((acc, curr) => {
+    return allIngredient.reduce((acc, curr) => {
       if (curr.type === "bun") {
         return acc + 2 * curr.price;
       }
       return acc + curr.price;
     }, 0);
-  }
-  const getIdIngredient = ingredient.map((item) => item._id);
+  }, [allIngredient]);
+
   const dispatch = useDispatch();
 
-  const bun = ingredient
-    .filter((item) => item.type === "bun")
-    .map((item, i) => i === 0 && item);
-
-  const handleClickDelete = () => {
-    dispatch({ type: DELETE_INGREDIENTS });
-  };
-
-  // изменение стейта для открытия popup
+  // open popupOrder
   const handleClick = () => {
     dispatch(getOrder(getIdIngredient));
   };
+  // dnd
+  const [, dropRef] = useDrop({
+    accept: "ingredient",
+    drop(itemData) {
+      if (itemData.type === "bun" && bun.length === 0) {
+        dispatch(addIngridient(itemData));
+      }
+      if (bun.length === 1) {
+        dispatch({ type: CHANGE_BUN, payload: itemData });
+      }
+      if (itemData.type !== "bun") {
+        dispatch(addIngridient(itemData));
+      }
+    },
+  });
+
+  const moveElement = useCallback((dragIndex, hoverIndex) => {
+    dispatch({
+      type: MOVE_ELEMENT,
+      payload: {
+        dragIndex,
+        hoverIndex,
+      },
+    });
+  }, []);
 
   return (
-    <section className={burgerConstructorStyles.section}>
+    <section className={burgerConstructorStyles.section} ref={dropRef}>
       <div
         className={`${burgerConstructorStyles.components}`}
         style={{
@@ -62,22 +88,16 @@ function BurgerConstructor() {
         )}
         <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
           {ingredient.length > 0 &&
-            ingredient
-              .filter((item) => item.type !== "bun")
-              .map((item) => (
-                <li
-                  className={burgerConstructorStyles.component}
+            ingredient.map((item, index) => {
+              return (
+                <DetailConstructor
+                  ingredient={item}
+                  index={index}
                   key={item.key}
-                >
-                  <DragIcon />
-                  <ConstructorElement
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image}
-                    onClick={handleClickDelete}
-                  />
-                </li>
-              ))}
+                  moveElement={moveElement}
+                />
+              );
+            })}
         </ul>
         {bun.length > 0 && (
           <div className="pr-3">
@@ -93,9 +113,7 @@ function BurgerConstructor() {
       </div>
       <div className={burgerConstructorStyles.counts}>
         <div className="mr-10" style={{ display: "flex" }}>
-          <p className="text text_type_digits-default mr-2">
-            {calculationSumа(ingredient)}
-          </p>
+          <p className="text text_type_digits-default mr-2">{totalPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button
@@ -110,10 +128,5 @@ function BurgerConstructor() {
     </section>
   );
 }
-
-// BurgerConstructor.propTypes = {
-// data: PropTypes.arrayOf(ingredientPropType).isRequired,
-//   setOrderId: PropTypes.func.isRequired,
-// };
 
 export default BurgerConstructor;

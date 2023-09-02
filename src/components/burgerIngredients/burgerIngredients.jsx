@@ -11,7 +11,7 @@ function BurgerIngredients() {
   const ingredients = useSelector(
     (state) => state.ingredientsDataReducer.ingredients,
   );
-
+  // scroll
   const [refBun, inViewBun] = useInView({
     root: document.querySelector("#scrollArea"),
     rootMargin: "-50px 0px",
