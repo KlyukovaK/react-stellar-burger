@@ -4,6 +4,7 @@
 }
 .tab {
   margin: 20px 0 40px;
+  display: flex;
 }
 .components {
   overflow-y: scroll;

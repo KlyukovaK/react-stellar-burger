@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import orderDetailsStyle from "./orderDetails.module.css";
+import orderDetailsStyle from "./order-details.module.css";
 import done from "../../image/done.svg";
 
 function OrderDetails() {

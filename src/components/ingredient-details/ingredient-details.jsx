@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
-import ingredientDetailsStyle from "./ingredientDetails.module.css";
-import ingredientPropType from "../../utils/prop-types";
+import ingredientDetailsStyle from "./ingredient-details.module.css";
 
 function IngredientDetails() {
   const { ingradientDetail } = useSelector(
@@ -49,5 +48,5 @@ function IngredientDetails() {
     </>
   );
 }
-IngredientDetails.propTypes = ingredientPropType.isRequired;
+
 export default IngredientDetails;

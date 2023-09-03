@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
 import ingredientPropType from "../../utils/prop-types";
 import { DELETE_INGREDIENTS } from "../../services/actions/burgerConstructor";
-import detailConstructorStyles from "./detailConstructor.module.css";
+import detailConstructorStyles from "./detail-constructor.module.css";
 
 function DetailConstructor({ ingredient, index, moveElement }) {
   // dnd for constructor element

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useInView } from "react-intersection-observer";
-import burgerIngredientsStyles from "./burgerIngredients.module.css";
+import burgerIngredientsStyles from "./burger-ingredients.module.css";
 import Ingredient from "../ingredient/ingredient";
 
 function BurgerIngredients() {
@@ -41,7 +41,7 @@ function BurgerIngredients() {
   return (
     <section className={burgerIngredientsStyles.section} id="scrollArea">
       <h1 className="text text_type_main-large">Соберите бургер</h1>
-      <div className={burgerIngredientsStyles.tab} style={{ display: "flex" }}>
+      <div className={burgerIngredientsStyles.tab}>
         <Tab
           value="bun"
           active={current === "bun"}

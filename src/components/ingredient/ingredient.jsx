@@ -5,10 +5,9 @@ import {
 import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
-import ingredientPropType from "../../utils/prop-types";
 import ingredientsStyles from "./ingredient.module.css";
 import { addIngredientDetail } from "../../services/actions/ingredientPopup";
-// import { POPUP_INGREDIENT_DETEAILS_OPEN } from "../../services/actions/modalIngredientDeteails";
+import ingredientPropType from "../../utils/prop-types";
 
 function Ingredient({ itemData }) {
   const dispatch = useDispatch();
@@ -40,7 +39,7 @@ function Ingredient({ itemData }) {
     >
       {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
       <img src={itemData.image} alt={itemData.name} />
-      <div className="mt-1 mb-1" style={{ display: "flex" }}>
+      <div className={`${ingredientsStyles.price} mt-1 mb-1`}>
         <p className="text text_type_digits-default mr-2">{itemData.price}</p>
         <CurrencyIcon type="primary" />
       </div>
@@ -51,6 +50,8 @@ function Ingredient({ itemData }) {
   );
 }
 
-Ingredient.propTypes = ingredientPropType.isRequired;
+Ingredient.propTypes = {
+  itemData: ingredientPropType.isRequired,
+};
 
 export default Ingredient;

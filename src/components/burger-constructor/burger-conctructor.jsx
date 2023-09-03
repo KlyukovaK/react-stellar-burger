@@ -6,14 +6,14 @@ import {
 import { useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
-import burgerConstructorStyles from "./burgerConstructor.module.css";
+import burgerConstructorStyles from "./burger-constructor.module.css";
 import {
   addIngridient,
   CHANGE_BUN,
   MOVE_ELEMENT,
 } from "../../services/actions/burgerConstructor";
 import { getOrder } from "../../services/actions/orderDetails";
-import DetailConstructor from "../detailConstructor/detailConstructor";
+import DetailConstructor from "../detail-constructor/detail-constructor";
 
 function BurgerConstructor() {
   const { bun, ingredient } = useSelector((state) => state.ingredientsReducer);
@@ -66,15 +66,7 @@ function BurgerConstructor() {
 
   return (
     <section className={burgerConstructorStyles.section} ref={dropRef}>
-      <div
-        className={`${burgerConstructorStyles.components}`}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          alignItems: "end",
-        }}
-      >
+      <div className={`${burgerConstructorStyles.components}`}>
         {bun.length > 0 && (
           <div className="pr-3">
             <ConstructorElement
@@ -111,20 +103,23 @@ function BurgerConstructor() {
           </div>
         )}
       </div>
-      <div className={burgerConstructorStyles.counts}>
-        <div className="mr-10" style={{ display: "flex" }}>
-          <p className="text text_type_digits-default mr-2">{totalPrice}</p>
-          <CurrencyIcon type="primary" />
+      {bun.length > 0 && (
+        <div className={burgerConstructorStyles.counts}>
+          <div className={`${burgerConstructorStyles.count} mr-10`}>
+            <p className="text text_type_digits-default mr-2">{totalPrice}</p>
+            <CurrencyIcon type="primary" />
+          </div>
+
+          <Button
+            htmlType="button"
+            type="primary"
+            size="medium"
+            onClick={handleClick}
+          >
+            Оформить заказ
+          </Button>
         </div>
-        <Button
-          htmlType="button"
-          type="primary"
-          size="medium"
-          onClick={handleClick}
-        >
-          Оформить заказ
-        </Button>
-      </div>
+      )}
     </section>
   );
 }
