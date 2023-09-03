@@ -5,6 +5,7 @@ import {
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
+import PropTypes from "prop-types";
 import ingredientPropType from "../../utils/prop-types";
 import { DELETE_INGREDIENTS } from "../../services/actions/burgerConstructor";
 import detailConstructorStyles from "./detail-constructor.module.css";
@@ -71,6 +72,10 @@ function DetailConstructor({ ingredient, index, moveElement }) {
     </li>
   );
 }
+DetailConstructor.propTypes = {
+  moveElement: PropTypes.func.isRequired,
+  ingredient: ingredientPropType.isRequired,
+  index: PropTypes.number.isRequired,
+};
 
-DetailConstructor.propTypes = ingredientPropType.isRequired;
 export default DetailConstructor;
