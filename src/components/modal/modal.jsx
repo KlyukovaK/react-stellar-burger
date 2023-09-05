@@ -1,24 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
+import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import modalStyles from "./modal.module.css";
-import AppContext from "../../services/AppContext";
-import ModalOverlay from "../modalOverlay/modalOverlay";
+import ModalOverlay from "../modal-overlay/modal-overlay";
 
 const modalRoot = document.getElementById("react-modals");
 
-function Modal({ text, children }) {
-  const { addIngredientState, addIngredientDispatcher, setOrderId } =
-    useContext(AppContext);
-
-  const closePopup = () => {
-    if (addIngredientState.data !== null) {
-      addIngredientDispatcher({ type: "reset" });
-    } else {
-      setOrderId(null);
-    }
-  };
-
+function Modal({ text, children, closePopup }) {
   const handleEscClose = (e) => {
     if (e.key === "Escape") {
       closePopup();
@@ -52,5 +41,10 @@ function Modal({ text, children }) {
     modalRoot,
   );
 }
+Modal.propTypes = {
+  closePopup: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
 
 export default Modal;

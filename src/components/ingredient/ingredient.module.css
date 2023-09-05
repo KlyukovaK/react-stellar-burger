@@ -11,3 +11,6 @@
   height: 48px;
   text-align: center;
 }
+.price {
+  display: flex;
+}

@@ -1,110 +1,71 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from "./app.module.css";
-import Header from "../appHeader/appHeader";
-import BurgerIngredients from "../burgerIngredients/burgerIngredients";
-import BurgerConstructor from "../burgerConstructor/burgerConctructor";
+import Header from "../app-header/app-header";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-conctructor";
 import Modal from "../modal/modal";
-import IngredientDetails from "../ingredientDetails/ingredientDetails";
-import OrderDetails from "../orderDetails/orderDetails";
-import { getIngredients, getOrderApi } from "../../utils/burger-api";
-import AppContext from "../../services/AppContext";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderDetails from "../order-details/order-details";
+import { getDataIngredients } from "../../services/actions/burgerIngredients";
+import { CLOSE_ORDER } from "../../services/actions/orderDetails";
+import { CLOSE_INGREDIENT_DETAIL } from "../../services/actions/ingredientPopup";
 
-const UrlData = "https://norma.nomoreparties.space/api/ingredients";
-const UrlOrder = "https://norma.nomoreparties.space/api/orders";
 function App() {
   // подгрузка с api
-  const [data, setData] = React.useState([]);
+  const { ingredients, ingredientRequest, ingredientFaild } = useSelector(
+    (state) => state.ingredientsDataReducer,
+  );
+  const { order, orderRequest, orderFaild } = useSelector(
+    (state) => state.orderReducer,
+  );
+  const { ingradientDetail } = useSelector(
+    (state) => state.initialIngredientDetailReducer,
+  );
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    getIngredients(UrlData)
-      .then((res) => setData(res.data))
-      .catch((err) => {
-        setData(err);
-        console.log(err);
-      });
+    dispatch(getDataIngredients());
   }, []);
-  // открытие popup
-  const [orderId, setOrderId] = React.useState(null);
-  // const [ingredientModal, setIngredientModal] = React.useState(null);
-  // добавление в заказ
-  const initialAddIngredientState = { data: null, ingredient: [] };
-  function reducer(state, action) {
-    switch (action.type) {
-      case "set":
-        return {
-          ...state,
-          data: action.payload,
-          ingredient: [...state.ingredient, action.payload],
-        };
-      case "reset":
-        return {
-          ...state,
-          data: null,
-        };
-      default:
-        throw new Error(`Wrong type of action: ${action.type}`);
+  // close popup
+  const closePopup = () => {
+    if (order) {
+      dispatch({ type: CLOSE_ORDER });
+    } else {
+      dispatch({ type: CLOSE_INGREDIENT_DETAIL });
     }
-  }
-
-  const [addIngredientState, addIngredientDispatcher] = React.useReducer(
-    reducer,
-    initialAddIngredientState,
-    undefined,
-  );
-
-  const getIdIngredient = addIngredientState.ingredient.map((item) => item._id);
-  const [orderNumber, orderNumberState] = React.useState(0);
-
-  const getOrder = () => {
-    getOrderApi(UrlOrder, getIdIngredient)
-      .then((res) => orderNumberState(res.order.number))
-      .catch((err) => {
-        orderNumberState(err);
-        console.log(err);
-      });
   };
 
-  const storeData = React.useMemo(
-    () => ({
-      data,
-      setOrderId,
-      getOrder,
-      addIngredientState,
-      orderNumber,
-      addIngredientDispatcher,
-    }),
-    [
-      data,
-      getOrder,
-      orderNumber,
-      setOrderId,
-      addIngredientState,
-      addIngredientDispatcher,
-    ],
-  );
-
   return (
-    <AppContext.Provider value={storeData}>
-      <div className={styles.app}>
-        <Header />
+    <div className={styles.app}>
+      <Header />
+      <DndProvider backend={HTML5Backend}>
         <main className={styles.main}>
-          <BurgerIngredients />
-          <BurgerConstructor />
+          {ingredientFaild && <p>Произошла ошибка при получении данных</p>}
+          {ingredientRequest && <p>Загрузка...</p>}
+          {ingredients && (
+            <>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </>
+          )}
         </main>
-
-        {orderId && (
-          <Modal text=" ">
-            <OrderDetails />
-          </Modal>
-        )}
-
-        {addIngredientState.data !== null && (
-          <Modal text="Детали игридиента">
-            <IngredientDetails />
-          </Modal>
-        )}
-      </div>
-    </AppContext.Provider>
+      </DndProvider>
+      {orderFaild && <p>Произошла ошибка при получении данных</p>}
+      {orderRequest && <p>Загрузка...</p>}
+      {order && (
+        <Modal text=" " closePopup={closePopup}>
+          <OrderDetails />
+        </Modal>
+      )}
+      {ingradientDetail && (
+        <Modal text="Детали игридиента" closePopup={closePopup}>
+          <IngredientDetails />
+        </Modal>
+      )}
+    </div>
   );
 }
 
