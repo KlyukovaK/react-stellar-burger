@@ -13,7 +13,9 @@ function Header() {
         <nav className={appHeaderStyles.links}>
           <a href="/" className={appHeaderStyles.link}>
             <BurgerIcon type="primary" />
-            <p className="text text_type_main-default ml-2">Конструктор</p>
+            <span className="text text_type_main-default ml-2">
+              Конструктор
+            </span>
           </a>
           <a
             href="/"

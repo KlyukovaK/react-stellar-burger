@@ -1,0 +1,39 @@
+.main {
+  display: grid;
+  max-width: 860px;
+  margin: 120px auto;
+  grid-template-columns: 320px 480px;
+  column-gap: 60px;
+  row-gap: 0;
+}
+.links {
+  width: 383px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  max-width: 320px;
+  margin-bottom: 60px;
+}
+.link {
+  text-decoration: none;
+  margin: 17px 0;
+  color: #f2f2f3;
+}
+.caption {
+  grid-row: 2;
+  grid-column: 1;
+  max-width: 320px;
+  margin: 20px 0;
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
+  margin: 0;
+}
