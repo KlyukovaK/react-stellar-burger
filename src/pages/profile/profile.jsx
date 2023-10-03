@@ -11,14 +11,12 @@ export function Profile() {
   const [name, setName] = useState("");
   const [login, setLogin] = useState("");
 
-  const onChange = (e) => {
-    setPassword(e.target.value);
-  };
   const inputRef = useRef(null);
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
     alert("Icon Click Callback");
   };
+
   return (
     <main className={profileStyles.main}>
       <nav className={profileStyles.links}>
@@ -71,7 +69,7 @@ export function Profile() {
           extraClass="ml-1"
         />
         <PasswordInput
-          onChange={onChange}
+          onChange={(e) => setPassword(e.target.value)}
           value={password}
           name="password"
           icon="EditIcon"
