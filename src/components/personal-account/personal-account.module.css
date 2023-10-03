@@ -2,15 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 140px auto;
+  margin: 160px auto;
 }
-.inputs {
+.children {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 24px;
-  margin-bottom: 24px;
-}
-.button{
-  display: flex;
-  justify-content: center;
 }
