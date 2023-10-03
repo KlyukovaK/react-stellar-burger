@@ -4,7 +4,7 @@ import personalAccountStyles from "./personal-account.module.css";
 export function PersonalAccount({ title, children }) {
   return (
     <main className={personalAccountStyles.main}>
-      <h1 className="text text_type_main-large mb-6">{title}</h1>
+      <h1 className="text text_type_main-medium mb-6">{title}</h1>
       <div className={personalAccountStyles.children}>{children}</div>
     </main>
   );

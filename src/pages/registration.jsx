@@ -1,17 +1,36 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   EmailInput,
   PasswordInput,
+  Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { PersonalAccount } from "../../components/personal-account/personal-account";
+import { PersonalAccount } from "../components/personal-account/personal-account";
 
-export function Login() {
+export function Registration() {
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-
+  const inputRef = useRef(null);
+  const onIconClick = () => {
+    setTimeout(() => inputRef.current.focus(), 0);
+    alert("Icon Click Callback");
+  };
   return (
-    <PersonalAccount title="Вход">
+    <PersonalAccount title="Регистрация">
+      <Input
+        type="text"
+        placeholder="Имя"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+        name="name"
+        error={false}
+        ref={inputRef}
+        onIconClick={onIconClick}
+        errorText="Ошибка"
+        size="default"
+        extraClass="ml-1"
+      />
       <EmailInput
         onChange={(e) => setEmail(e.target.value)}
         value={email}
@@ -25,11 +44,11 @@ export function Login() {
         extraClass="mb-2"
       />
       <Button htmlType="button" type="primary" size="medium">
-        Войти
+        Зарегистрироваться
       </Button>
-      <div className="mt-20">
+      <div className="mt-20 mb-4">
         <span className="text text_type_main-default text_color_inactive">
-          Вы — новый пользователь?
+          Уже зарегистрированы?
         </span>
         <Button
           htmlType="button"
@@ -37,20 +56,7 @@ export function Login() {
           size="large"
           style={{ padding: 0, paddingLeft: "8px" }}
         >
-          Зарегистрироваться
-        </Button>
-      </div>
-      <div>
-        <span className="text text_type_main-default text_color_inactive">
-          Забыли пароль?
-        </span>
-        <Button
-          htmlType="button"
-          type="secondary"
-          size="large"
-          style={{ padding: 0, paddingLeft: "8px" }}
-        >
-          Восстановить пароль
+          Войти
         </Button>
       </div>
     </PersonalAccount>
