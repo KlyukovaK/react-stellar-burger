@@ -6,7 +6,7 @@ import styles from "../components/app/app.module.css";
 import BurgerIngredients from "../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../components/burger-constructor/burger-conctructor";
 import Modal from "../components/modal/modal";
-import IngredientDetails from "../components/ingredient-details/ingredient-details";
+// import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import OrderDetails from "../components/order-details/order-details";
 import { getDataIngredients } from "../services/actions/burgerIngredients";
 import { CLOSE_ORDER } from "../services/actions/orderDetails";
@@ -20,9 +20,9 @@ export function HomePage() {
   const { order, orderRequest, orderFaild } = useSelector(
     (state) => state.orderReducer,
   );
-  const { ingradientDetail } = useSelector(
-    (state) => state.initialIngredientDetailReducer,
-  );
+  // const { ingradientDetail } = useSelector(
+  //   (state) => state.initialIngredientDetailReducer,
+  // );
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -58,11 +58,11 @@ export function HomePage() {
           <OrderDetails />
         </Modal>
       )}
-      {ingradientDetail && (
+      {/* {ingradientDetail && (
         <Modal text="Детали игридиента" closePopup={closePopup}>
           <IngredientDetails />
         </Modal>
-      )}
+      )} */}
     </>
   );
 }

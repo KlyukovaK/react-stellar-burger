@@ -1,25 +1,40 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   PasswordInput,
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PersonalAccount } from "../components/personal-account/personal-account";
+import { changePasswordUser, setFormVale } from "../services/actions/auth";
 
 export function ResetPassword() {
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [code, setCode] = useState("");
-
+  const { password } = useSelector((state) => state.formAuthReducer.form);
   const inputRef = useRef(null);
+  const setForm = (e) => {
+    dispatch(setFormVale(e.target.name, e.target.value));
+  };
+
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
     alert("Icon Click Callback");
   };
 
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    dispatch(changePasswordUser(password, code));
+    setCode("");
+    navigate("/login");
+  };
+
   return (
-    <PersonalAccount title="Восстановление пароля">
+    <PersonalAccount title="Восстановление пароля" onFormSubmit={onFormSubmit}>
       <PasswordInput
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={setForm}
         value={password}
         placeholder="Введите новый пароль"
         name="password"
@@ -37,7 +52,7 @@ export function ResetPassword() {
         size="default"
         extraClass="ml-1"
       />
-      <Button htmlType="button" type="primary" size="medium">
+      <Button htmlType="submit" type="primary" size="medium">
         Сохранить
       </Button>
       <div className="mt-20 mb-4">
@@ -49,6 +64,7 @@ export function ResetPassword() {
           type="secondary"
           size="large"
           style={{ padding: 0, paddingLeft: "8px" }}
+          onClick={() => navigate("/login")}
         >
           Войти
         </Button>

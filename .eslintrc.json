@@ -27,7 +27,22 @@
     "prettier"
   ],
   "rules": {
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "no-return-await": [
+      "off"
+    ],
+    "@typescript-eslint/return-await": [
+      "error"
+    ],
     "react/react-in-jsx-scope": [
+      "off"
+    ],
+    "react/require-default-props": [
       "off"
     ],
     "react/jsx-uses-react": [

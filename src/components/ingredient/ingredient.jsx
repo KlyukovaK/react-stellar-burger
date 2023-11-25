@@ -3,17 +3,15 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import { useDrag } from "react-dnd";
 import ingredientsStyles from "./ingredient.module.css";
-import { addIngredientDetail } from "../../services/actions/ingredientPopup";
 import ingredientPropType from "../../utils/prop-types";
 
 function Ingredient({ itemData }) {
-  const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(addIngredientDetail(itemData));
-  };
+  const ingredientId = itemData._id;
+  const location = useLocation();
   // dnd
   const [, dragRef] = useDrag({
     type: "ingredient",
@@ -31,10 +29,12 @@ function Ingredient({ itemData }) {
   }, [allIngredient]);
 
   return (
-    <article
+    <Link
+      key={ingredientId}
+      to={`/ingredients/${ingredientId}`}
+      state={{ background: location }}
       className={ingredientsStyles.card}
       aria-hidden="true"
-      onClick={handleClick}
       ref={dragRef}
     >
       {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
@@ -46,7 +46,7 @@ function Ingredient({ itemData }) {
       <p className={`${ingredientsStyles.name} text text_type_main-default`}>
         {itemData.name}
       </p>
-    </article>
+    </Link>
   );
 }
 

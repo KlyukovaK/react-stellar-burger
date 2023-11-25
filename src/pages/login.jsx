@@ -1,30 +1,48 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { setFormVale, loginUser } from "../services/actions/auth";
 import { PersonalAccount } from "../components/personal-account/personal-account";
 
 export function Login() {
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const { email, password } = useSelector(
+    (state) => state.formAuthReducer.form,
+  );
+  const dispatch = useDispatch();
+
+  const setForm = (e) => {
+    dispatch(setFormVale(e.target.name, e.target.value));
+  };
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(email, password));
+  };
 
   return (
-    <PersonalAccount title="Вход">
+    <PersonalAccount title="Вход" onFormSubmit={onFormSubmit}>
       <EmailInput
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={setForm}
         value={email}
         name="email"
         isIcon={false}
       />
       <PasswordInput
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={setForm}
         value={password}
         name="password"
         extraClass="mb-2"
       />
-      <Button htmlType="button" type="primary" size="medium">
+      <Button
+        htmlType="submit"
+        type="primary"
+        size="medium"
+        onClick={() => navigate(-1)}
+      >
         Войти
       </Button>
       <div className="mt-20">
@@ -36,6 +54,7 @@ export function Login() {
           type="secondary"
           size="large"
           style={{ padding: 0, paddingLeft: "8px" }}
+          onClick={() => navigate("/register")}
         >
           Зарегистрироваться
         </Button>
@@ -49,6 +68,7 @@ export function Login() {
           type="secondary"
           size="large"
           style={{ padding: 0, paddingLeft: "8px" }}
+          onClick={() => navigate("/forgot-password")}
         >
           Восстановить пароль
         </Button>
