@@ -16,7 +16,7 @@ export function Profile() {
   const dispatch = useDispatch();
   const [name, setName] = useState(user.name);
   const [login, setLogin] = useState(user.email);
-  const [password, setPassword] = useState("......");
+  const [password, setPassword] = useState("....");
   const [isActive, setIsActive] = useState("Profil");
 
   const onIconClick = () => {
@@ -35,7 +35,7 @@ export function Profile() {
   };
   const onFormSubmit = (e) => {
     e.preventDefault();
-    changeProfile(name, login).then((res) => {
+    changeProfile(name, login, password).then((res) => {
       console.log(res);
       dispatch(setUser(res.user));
     });

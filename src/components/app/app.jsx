@@ -14,6 +14,7 @@ import Header from "../app-header/app-header";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { checkUserAuth } from "../../services/actions/auth";
+import { getDataIngredients } from "../../services/actions/burgerIngredients";
 
 function App() {
   const location = useLocation();
@@ -31,6 +32,11 @@ function App() {
   useEffect(() => {
     dispatch(checkUserAuth());
   }, []);
+
+  useEffect(() => {
+    dispatch(getDataIngredients());
+  }, []);
+
   const checkResetPassword = () => {
     if (forgotPasswordSucces && location.pathname === "/reset-password") {
       return true;
@@ -40,16 +46,15 @@ function App() {
   useEffect(() => {
     checkResetPassword();
   }, [checkResetPassword, forgotPasswordSucces, location.pathname]);
-
+  const PopupInIngredientDetails = (
+    <Route path="/ingredients/:ingredientId" element={<IngredientDetails />} />
+  );
   return (
     <div className={styles.app}>
       <Header />
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/ingredients/:ingredientId"
-          element={<IngredientDetails />}
-        />
+        {PopupInIngredientDetails}
         <Route path="/login" element={<OnlyUnAuth element={<Login />} />} />
         <Route
           path="/register"

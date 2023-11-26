@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -8,7 +7,6 @@ import BurgerConstructor from "../components/burger-constructor/burger-conctruct
 import Modal from "../components/modal/modal";
 // import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import OrderDetails from "../components/order-details/order-details";
-import { getDataIngredients } from "../services/actions/burgerIngredients";
 import { CLOSE_ORDER } from "../services/actions/orderDetails";
 import { CLOSE_INGREDIENT_DETAIL } from "../services/actions/ingredientPopup";
 
@@ -24,10 +22,6 @@ export function HomePage() {
   //   (state) => state.initialIngredientDetailReducer,
   // );
   const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(getDataIngredients());
-  }, []);
   // close popup
   const closePopup = () => {
     if (order) {

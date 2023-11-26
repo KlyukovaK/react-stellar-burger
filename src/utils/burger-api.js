@@ -110,14 +110,14 @@ const getUser = () => {
   });
 };
 // запрос на изменения в профиле
-const changeProfile = (name, email) => {
+const changeProfile = (name, email, password) => {
   return fetchWithRefresh(`${authUrl}/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
       Authorization: localStorage.getItem("accessToken"),
     },
-    body: JSON.stringify({ name, email }),
+    body: JSON.stringify({ name, email, password }),
   });
 };
 

@@ -11,9 +11,8 @@ import appHeaderStyles from "./app-header.module.css";
 function Header() {
   const [isActive, setIsActive] = useState("");
   const location = useLocation();
-
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/" || location.pathname === "/ingredients") {
       setIsActive("Constructor");
     } else if (location.pathname === "/feed") {
       setIsActive("HistoryOfOrders");
@@ -23,6 +22,7 @@ function Header() {
       setIsActive("Profil");
     }
   }, [location.pathname]);
+
   return (
     <header className={appHeaderStyles.header}>
       <div className={appHeaderStyles.box}>

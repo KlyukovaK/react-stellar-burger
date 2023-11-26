@@ -118,6 +118,8 @@ export const registerUser = (email, password, name) => {
             name: res.user.name,
           },
         });
+        dispatch(setUser(res.user));
+        dispatch(setAuthChecked(true));
       })
       .catch((err) => {
         console.log(err);
