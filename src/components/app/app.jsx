@@ -1,69 +1,83 @@
-import React from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route";
 import styles from "./app.module.css";
+import { Profile } from "../../pages/profile/profile";
+import { HomePage } from "../../pages/home";
+import { Login } from "../../pages/login";
+import { Registration } from "../../pages/registration";
+import { ForgotPassword } from "../../pages/forgot-password";
+import { ResetPassword } from "../../pages/reset-password";
+import { Error404 } from "../../pages/page404/page404";
 import Header from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-conctructor";
-import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
+import { checkUserAuth } from "../../services/actions/auth";
 import { getDataIngredients } from "../../services/actions/burgerIngredients";
-import { CLOSE_ORDER } from "../../services/actions/orderDetails";
-import { CLOSE_INGREDIENT_DETAIL } from "../../services/actions/ingredientPopup";
 
 function App() {
-  // подгрузка с api
-  const { ingredients, ingredientRequest, ingredientFaild } = useSelector(
-    (state) => state.ingredientsDataReducer,
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = location.state && location.state.background;
+  const { forgotPasswordSucces } = useSelector(
+    (state) => state.formAuthReducer,
   );
-  const { order, orderRequest, orderFaild } = useSelector(
-    (state) => state.orderReducer,
-  );
-  const { ingradientDetail } = useSelector(
-    (state) => state.initialIngredientDetailReducer,
-  );
+  const handleModalClose = () => {
+    // Возвращаемся к предыдущему пути при закрытии модалки
+    navigate(-1);
+  };
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
+    dispatch(checkUserAuth());
+  }, []);
+
+  useEffect(() => {
     dispatch(getDataIngredients());
   }, []);
-  // close popup
-  const closePopup = () => {
-    if (order) {
-      dispatch({ type: CLOSE_ORDER });
-    } else {
-      dispatch({ type: CLOSE_INGREDIENT_DETAIL });
-    }
-  };
 
+  const checkResetPassword = () => {
+    if (forgotPasswordSucces && location.pathname === "/reset-password") {
+      return true;
+    }
+    return false;
+  };
+  useEffect(() => {
+    checkResetPassword();
+  }, [checkResetPassword, forgotPasswordSucces, location.pathname]);
+  const PopupInIngredientDetails = (
+    <Route path="/ingredients/:ingredientId" element={<IngredientDetails />} />
+  );
   return (
     <div className={styles.app}>
       <Header />
-      <DndProvider backend={HTML5Backend}>
-        <main className={styles.main}>
-          {ingredientFaild && <p>Произошла ошибка при получении данных</p>}
-          {ingredientRequest && <p>Загрузка...</p>}
-          {ingredients && (
-            <>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </>
-          )}
-        </main>
-      </DndProvider>
-      {orderFaild && <p>Произошла ошибка при получении данных</p>}
-      {orderRequest && <p>Загрузка...</p>}
-      {order && (
-        <Modal text=" " closePopup={closePopup}>
-          <OrderDetails />
-        </Modal>
-      )}
-      {ingradientDetail && (
-        <Modal text="Детали игридиента" closePopup={closePopup}>
-          <IngredientDetails />
-        </Modal>
+      <Routes location={background || location}>
+        <Route path="/" element={<HomePage />} />
+        {PopupInIngredientDetails}
+        <Route path="/login" element={<OnlyUnAuth element={<Login />} />} />
+        <Route
+          path="/register"
+          element={<OnlyUnAuth element={<Registration />} />}
+        />
+        <Route path="/profile" element={<OnlyAuth element={<Profile />} />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        {checkResetPassword() && (
+          <Route path="/reset-password" element={<ResetPassword />} />
+        )}
+        <Route path="*" element={<Error404 />} />
+      </Routes>
+      {background && (
+        <Routes>
+          <Route
+            path="/ingredients/:ingredientId"
+            element={
+              <Modal text="Детали игридиента" closePopup={handleModalClose}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
       )}
     </div>
   );

@@ -5,6 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useDrop } from "react-dnd";
 import burgerConstructorStyles from "./burger-constructor.module.css";
 import {
@@ -17,9 +18,10 @@ import DetailConstructor from "../detail-constructor/detail-constructor";
 
 function BurgerConstructor() {
   const { bun, ingredient } = useSelector((state) => state.ingredientsReducer);
+  const { user } = useSelector((state) => state.formAuthReducer);
   const allIngredient = [...bun, ...ingredient];
   const getIdIngredient = allIngredient.map((item) => item._id);
-
+  const navigate = useNavigate();
   const totalPrice = useMemo(() => {
     if (allIngredient.length === 0) {
       return 0;
@@ -36,7 +38,10 @@ function BurgerConstructor() {
 
   // open popupOrder
   const handleClick = () => {
-    dispatch(getOrder(getIdIngredient));
+    if (user) {
+      dispatch(getOrder(getIdIngredient));
+    }
+    navigate("/login");
   };
   // dnd
   const [, dropRef] = useDrop({
