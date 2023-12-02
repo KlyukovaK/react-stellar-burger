@@ -15,6 +15,9 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { checkUserAuth } from "../../services/actions/auth";
 import { getDataIngredients } from "../../services/actions/burgerIngredients";
+import { OrderFeed } from "../../pages/order-feed/order-feed";
+import { ProfileOrders } from "../../pages/profile-orders/profile-orders";
+import { OrderHistoryDetails } from "../order-history-details/order-history-details";
 
 function App() {
   const location = useLocation();
@@ -23,6 +26,7 @@ function App() {
   const { forgotPasswordSucces } = useSelector(
     (state) => state.formAuthReducer,
   );
+
   const handleModalClose = () => {
     // Возвращаемся к предыдущему пути при закрытии модалки
     navigate(-1);
@@ -43,12 +47,15 @@ function App() {
     }
     return false;
   };
+
   useEffect(() => {
     checkResetPassword();
   }, [checkResetPassword, forgotPasswordSucces, location.pathname]);
+
   const PopupInIngredientDetails = (
     <Route path="/ingredients/:ingredientId" element={<IngredientDetails />} />
   );
+
   return (
     <div className={styles.app}>
       <Header />
@@ -61,6 +68,16 @@ function App() {
           element={<OnlyUnAuth element={<Registration />} />}
         />
         <Route path="/profile" element={<OnlyAuth element={<Profile />} />} />
+        <Route
+          path="/profile/orders"
+          element={<OnlyAuth element={<ProfileOrders />} />}
+        />
+        <Route
+          path="/profile/orders/:number"
+          element={<OnlyAuth element={<OrderHistoryDetails />} />}
+        />
+        <Route path="/feed" element={<OrderFeed />} />
+        <Route path="/feed/:number" element={<OrderHistoryDetails />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         {checkResetPassword() && (
           <Route path="/reset-password" element={<ResetPassword />} />
@@ -75,6 +92,26 @@ function App() {
               <Modal text="Детали игридиента" closePopup={handleModalClose}>
                 <IngredientDetails />
               </Modal>
+            }
+          />
+          <Route
+            path="/feed/:number"
+            element={
+              <Modal text="" closePopup={handleModalClose}>
+                <OrderHistoryDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:number"
+            element={
+              <OnlyAuth
+                element={
+                  <Modal text="" closePopup={handleModalClose}>
+                    <OrderHistoryDetails />
+                  </Modal>
+                }
+              />
             }
           />
         </Routes>

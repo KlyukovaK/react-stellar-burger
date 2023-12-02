@@ -12,11 +12,17 @@ function getIngredients() {
 function getOrderApi(idIngredient) {
   return fetch(`${baseUrl}/orders`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
     body: JSON.stringify({
       ingredients: idIngredient,
     }),
   }).then(checkPromise);
+}
+function getOrderDitale(number) {
+  return fetch(`${baseUrl}/orders/${number}`).then(checkPromise);
 }
 // запрос авторизаци
 const loginRequest = (email, password) => {
@@ -133,4 +139,5 @@ export {
   changePassword,
   getUser,
   changeProfile,
+  getOrderDitale,
 };

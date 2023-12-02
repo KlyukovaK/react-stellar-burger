@@ -3,7 +3,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from "../components/app/app.module.css";
 import BurgerIngredients from "../components/burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../components/burger-constructor/burger-conctructor";
+import { BurgerConstructor } from "../components/burger-constructor/burger-conctructor";
 import Modal from "../components/modal/modal";
 // import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import OrderDetails from "../components/order-details/order-details";
