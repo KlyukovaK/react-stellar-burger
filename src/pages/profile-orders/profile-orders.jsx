@@ -7,6 +7,7 @@ import { ProfileMenu } from "../../components/profile-menu/profile-menu";
 import profileOrdersStyle from "./profile-orders.module.css";
 import { connect } from "../../services/actions/profileOrder";
 import { WebsocketStatus } from "../../utils/websocketStatus";
+import { Loader } from "../../components/loader/loader";
 
 export function ProfileOrders() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export function ProfileOrders() {
       {status === WebsocketStatus.OFFLINE && (
         <p>Произошла ошибка при получении данных</p>
       )}
-      {status === WebsocketStatus.OFFLINE && <p>Загрузка...</p>}
+      {status === WebsocketStatus.OFFLINE && <Loader text="Загрузка" />}
       {status === WebsocketStatus.ONLINE && (
         <main className={profileOrdersStyle.main}>
           <ProfileMenu />

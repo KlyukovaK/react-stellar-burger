@@ -21,6 +21,7 @@ function getOrderApi(idIngredient) {
     }),
   }).then(checkPromise);
 }
+
 function getOrderDitale(number) {
   return fetch(`${baseUrl}/orders/${number}`).then(checkPromise);
 }
@@ -89,7 +90,7 @@ const refreshToken = () => {
 async function fetchWithRefresh(url, options) {
   try {
     const res = await fetch(url, options);
-    return await checkPromise(res);
+    return checkPromise(res);
   } catch (err) {
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken(); // обновляем токен
@@ -100,7 +101,7 @@ async function fetchWithRefresh(url, options) {
       localStorage.setItem("accessToken", refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
       const res = await fetch(url, options); // повторяем запрос
-      return await checkPromise(res);
+      return checkPromise(res);
     }
     return Promise.reject(err);
   }

@@ -6,8 +6,8 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import orderHistoryDetailsStyle from "./order-history-details.module.css";
-import { price } from "../burger-constructor/burger-conctructor";
 import { getOrderDitale } from "../../utils/burger-api";
+import { price } from "../../utils/price";
 
 export function OrderHistoryDetails() {
   const { number } = useParams();

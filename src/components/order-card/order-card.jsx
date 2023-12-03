@@ -6,7 +6,7 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import orderCardStyle from "./order-card.module.css";
-import { price } from "../burger-constructor/burger-conctructor";
+import { price } from "../../utils/price";
 
 export function OrderCard({ itemOrder }) {
   const numberId = itemOrder.number;
@@ -21,7 +21,6 @@ export function OrderCard({ itemOrder }) {
       (el, index) => index === uniqulIngredientId.indexOf(el),
     );
   };
-  const totalPrice = price(uniqulIngredientId);
   const status = (order) => {
     if (order.status === "done") {
       return "Выполнен";
@@ -83,7 +82,9 @@ export function OrderCard({ itemOrder }) {
             ))}
         </ul>
         <div className={`${orderCardStyle.count}`}>
-          <p className="text text_type_digits-default mr-2">{totalPrice}</p>
+          <p className="text text_type_digits-default mr-2">
+            {price(uniqulIngredientId)}
+          </p>
           <CurrencyIcon type="primary" />
         </div>
       </div>

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { HistoryOfOrders } from "../../components/history-of-orders/history-of-orders";
 import orderFeedStyle from "./order-feed.module.css";
 import { connect, disconnect } from "../../services/actions/orderFeed";
+import { Loader } from "../../components/loader/loader";
 
 export function OrderFeed() {
   const ORDER_FEED = "wss://norma.nomoreparties.space/orders/all";
@@ -17,9 +18,7 @@ export function OrderFeed() {
 
   return (
     <>
-      {orders.length === 0 && (
-        <h1 className="text text_type_main-medium m-30">Загрузка...</h1>
-      )}
+      {orders.length === 0 && <Loader text="Загрузка" />}
       {orders.length !== 0 && (
         <main className={orderFeedStyle.main}>
           <HistoryOfOrders text="Лента заказов" orders={orders} />

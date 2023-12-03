@@ -3,7 +3,7 @@ import {
   ConstructorElement,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDrop } from "react-dnd";
@@ -11,31 +11,31 @@ import burgerConstructorStyles from "./burger-constructor.module.css";
 import {
   addIngridient,
   CHANGE_BUN,
+  CLEAN_INGREDIENTS,
   MOVE_ELEMENT,
 } from "../../services/actions/burgerConstructor";
 import { getOrder } from "../../services/actions/orderDetails";
 import DetailConstructor from "../detail-constructor/detail-constructor";
 
-function price(arrIngredient) {
-  if (arrIngredient.length === 0) {
-    return 0;
-  }
-  return arrIngredient.reduce((acc, curr) => {
-    if (curr.type === "bun") {
-      return acc + 2 * curr.price;
-    }
-    return acc + curr.price;
-  }, 0);
-}
-
 function BurgerConstructor() {
   const { bun, ingredient } = useSelector((state) => state.ingredientsReducer);
+  const { orderSuccess } = useSelector((state) => state.orderReducer);
   const { user } = useSelector((state) => state.formAuthReducer);
   const allIngredient = [...bun, ...ingredient];
   const getIdIngredient = allIngredient.map((item) => item._id);
   const navigate = useNavigate();
 
-  const totalPrice = price(allIngredient);
+  const totalPrice = useMemo(() => {
+    if (allIngredient.length === 0) {
+      return 0;
+    }
+    return allIngredient.reduce((acc, curr) => {
+      if (curr.type === "bun") {
+        return acc + 2 * curr.price;
+      }
+      return acc + curr.price;
+    }, 0);
+  }, [allIngredient]);
 
   const dispatch = useDispatch();
 
@@ -46,6 +46,11 @@ function BurgerConstructor() {
     }
     navigate("/login");
   };
+  useEffect(() => {
+    if (orderSuccess) {
+      dispatch({ type: CLEAN_INGREDIENTS });
+    }
+  }, [orderSuccess]);
   // dnd
   const [, dropRef] = useDrop({
     accept: "ingredient",
@@ -132,4 +137,4 @@ function BurgerConstructor() {
   );
 }
 
-export { BurgerConstructor, price };
+export default BurgerConstructor;

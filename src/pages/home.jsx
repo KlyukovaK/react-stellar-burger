@@ -3,12 +3,13 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from "../components/app/app.module.css";
 import BurgerIngredients from "../components/burger-ingredients/burger-ingredients";
-import { BurgerConstructor } from "../components/burger-constructor/burger-conctructor";
+import BurgerConstructor from "../components/burger-constructor/burger-conctructor";
 import Modal from "../components/modal/modal";
 // import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import OrderDetails from "../components/order-details/order-details";
 import { CLOSE_ORDER } from "../services/actions/orderDetails";
 import { CLOSE_INGREDIENT_DETAIL } from "../services/actions/ingredientPopup";
+import { Loader } from "../components/loader/loader";
 
 export function HomePage() {
   // подгрузка с api
@@ -36,7 +37,7 @@ export function HomePage() {
       <DndProvider backend={HTML5Backend}>
         <main className={styles.main}>
           {ingredientFaild && <p>Произошла ошибка при получении данных</p>}
-          {ingredientRequest && <p>Загрузка...</p>}
+          {ingredientRequest && <Loader text="Загрузка" />}
           {ingredients && (
             <>
               <BurgerIngredients />
@@ -45,8 +46,16 @@ export function HomePage() {
           )}
         </main>
       </DndProvider>
-      {orderFaild && <p>Произошла ошибка при получении данных</p>}
-      {orderRequest && <p>Загрузка...</p>}
+      {orderFaild && (
+        <Modal text=" " closePopup={closePopup}>
+          <p>Произошла ошибка при получении данных</p>
+        </Modal>
+      )}
+      {orderRequest && (
+        <Modal text=" " closePopup={closePopup}>
+          <Loader text="Заказ отправляется" />
+        </Modal>
+      )}
       {order && (
         <Modal text=" " closePopup={closePopup}>
           <OrderDetails />

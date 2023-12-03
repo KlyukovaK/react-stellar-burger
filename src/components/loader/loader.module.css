@@ -1,0 +1,38 @@
+.boxLoader {
+  margin: 60px auto;
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.text {
+  text-shadow: 1px 1px 2px rgba(51, 51, 255, 0.5), 0 0 0.2em rgba(51, 51, 255);
+}
+.loader {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+}
+.loader:after {
+  box-shadow: 0 2px 0 rgba(51, 51, 255, 0.7) inset;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

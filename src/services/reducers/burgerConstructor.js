@@ -3,6 +3,7 @@ import {
   DELETE_INGREDIENTS,
   CHANGE_BUN,
   MOVE_ELEMENT,
+  CLEAN_INGREDIENTS,
 } from "../actions/burgerConstructor";
 
 const initialAddIngredientState = { bun: [], ingredient: [] };
@@ -40,10 +41,16 @@ export const ingredientsReducer = (
           (ingredient) => ingredient.key !== action.payload,
         ),
       };
+    case CLEAN_INGREDIENTS:
+      return {
+        ...state,
+        bun: [...initialAddIngredientState.bun],
+        ingredient: [...initialAddIngredientState.ingredient],
+      };
     case MOVE_ELEMENT: {
       const { dragIndex } = action.payload;
       const { hoverIndex } = action.payload;
-      const { ingredient } = state;
+      const ingredient = [...state.ingredient];
       const dragElement = ingredient[dragIndex];
       ingredient.splice(dragIndex, 1);
       ingredient.splice(hoverIndex, 0, dragElement);
@@ -52,8 +59,7 @@ export const ingredientsReducer = (
         ingredient,
       };
     }
-
     default:
-      return initialAddIngredientState;
+      return state;
   }
 };

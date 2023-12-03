@@ -8,6 +8,7 @@ import {
 const initialOrderState = {
   orderRequest: false,
   orderFaild: false,
+  orderSuccess: false,
   order: null,
 };
 
@@ -18,12 +19,14 @@ export const orderReducer = (state = initialOrderState, action = {}) => {
         ...state,
         orderRequest: true,
         orderFaild: false,
+        orderSuccess: false,
       };
     }
     case GET_ORDER_SUCCESS: {
       return {
         ...state,
         orderRequest: false,
+        orderSuccess: true,
         order: action.payload,
       };
     }
@@ -32,11 +35,13 @@ export const orderReducer = (state = initialOrderState, action = {}) => {
         ...state,
         orderRequest: false,
         orderFaild: true,
+        orderSuccess: false,
       };
     }
     case CLOSE_ORDER: {
       return {
         ...state,
+        orderSuccess: false,
         order: null,
       };
     }
