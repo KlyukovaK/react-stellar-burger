@@ -1,0 +1,67 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  justify-content: center;
+  max-width: 640px;
+}
+.number {
+  text-align: center;
+}
+.status {
+  color: #00cccc;
+  margin: 0;
+}
+.list {
+  max-height: 312px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+.ingredientBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 608px;
+  margin-right: 24px;
+}
+.ingredient {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background: linear-gradient(45deg, #801ab2, #4c4cff);
+  background-clip: content-box, border-box;
+}
+.text {
+  width: 100%;
+  max-width: 390px;
+}
+.img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin: 2px;
+  padding: 0;
+  text-decoration: none;
+  background-color: black;
+  border-radius: 50%;
+}
+.count {
+  display: flex;
+  min-width: 100px;
+  align-items: center;
+}
+.allcount {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 0 0;
+}

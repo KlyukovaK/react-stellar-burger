@@ -1,0 +1,43 @@
+.main {
+  display: grid;
+  margin: 0 auto 40px;
+  padding: 0 40px;
+  grid-template-columns: 608px minmax(100px, 600px);
+  gap: 40px;
+  max-width: 1240px;
+}
+.section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 390px);
+  grid-template-rows: 54px 312px;
+  column-gap: 36px;
+}
+.list {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(10, min-content) ;
+  grid-template-columns: repeat(auto-fit, 70px);
+  gap: 8px;
+  grid-row: 2;
+}
+.number {
+  text-decoration: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.numberDone {
+  color: #00cccc;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  grid-column: 2;
+  grid-row: 2;
+}
+.completed {
+  text-shadow: 1px 1px 2px rgba(51, 51, 255, 0.5), 0 0 0.2em rgba(51, 51, 255);
+}

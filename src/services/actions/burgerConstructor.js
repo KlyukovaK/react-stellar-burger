@@ -4,6 +4,7 @@ export const ADD_INGREDIENTS = "ADD_INGREDIENTS";
 export const DELETE_INGREDIENTS = "DELETE_INGREDIENTS";
 export const CHANGE_BUN = "CHANGE_BUN";
 export const MOVE_ELEMENT = "MOVE_ELEMENT";
+export const CLEAN_INGREDIENTS = "CLEAN_INGREDIENTS";
 
 export const addIngridient = (itemData) => {
   return {
