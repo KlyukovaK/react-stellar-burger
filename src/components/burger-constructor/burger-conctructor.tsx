@@ -22,7 +22,7 @@ function BurgerConstructor() {
   const { bun, ingredient } = useSelector((state) => state.ingredientsReducer);
   const { orderSuccess } = useSelector((state) => state.orderReducer);
   const { user } = useSelector((state) => state.formAuthReducer);
-  const allIngredient: Array<TIngredientData> = [...bun, ...ingredient];
+  const allIngredient = [...bun, ...ingredient];
   const getIdIngredient = allIngredient.map((item) => item._id);
   const navigate = useNavigate();
   const totalPrice = useMemo(() => {
@@ -40,7 +40,7 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
 
   // open popupOrder
-  const handleClick = () => {
+  const handleClick = (): void => {
     if (user) {
       dispatch(getOrder(getIdIngredient));
     }
@@ -96,7 +96,7 @@ function BurgerConstructor() {
         )}
         <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
           {ingredient.length > 0 &&
-            ingredient.map((item: TIngredientData, index: number) => {
+            ingredient.map((item, index: number) => {
               return (
                 <DetailConstructor
                   ingredient={item}

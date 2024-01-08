@@ -13,13 +13,12 @@ type TModal = {
 };
 
 function Modal({ text, children, closePopup }: TModal) {
-  const handleEscClose = (e: Event & { key: string }) => {
-    if (e.key === "Escape") {
-      closePopup();
-    }
-  };
-
   React.useEffect(() => {
+    const handleEscClose = (e: KeyboardEvent): void => {
+      if (e.key === "Escape") {
+        closePopup();
+      }
+    };
     document.addEventListener("keydown", handleEscClose);
     return () => {
       document.removeEventListener("keydown", handleEscClose);

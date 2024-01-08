@@ -80,7 +80,7 @@ function DetailConstructor({
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
-        handleClose={() =>
+        handleClose={(): void =>
           dispatch({ type: DELETE_INGREDIENTS, payload: ingredient.key })
         }
       />

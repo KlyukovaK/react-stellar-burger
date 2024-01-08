@@ -18,25 +18,25 @@ export function Profile() {
   const [login, setLogin] = useState<string>(user?.email!);
   const [password, setPassword] = useState<string>("....");
 
-  const onIconClick = () => {
+  const onIconClick = (): void => {
     setTimeout(() => inputRef.current?.focus(), 0);
     alert("Icon Click Callback");
   };
 
-  const changeButton = () => {
+  const changeButton = (): boolean => {
     if ((user && name !== user.name) || (user && login !== user.email)) {
       return true;
     }
     return false;
   };
-  const onFormSubmit = (e: React.SyntheticEvent): void => {
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     changeProfile(name, login, password).then((res) => {
       console.log(res);
       dispatch(setUser(res.user));
     });
   };
-  const onClick = () => {
+  const onClick = (): void => {
     if (user) {
       setLogin(user.email);
       setName(user.name);
@@ -54,7 +54,7 @@ export function Profile() {
           <Input
             type="text"
             placeholder="Имя"
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
               setName(e.target.value);
             }}
             icon="EditIcon"
@@ -70,7 +70,9 @@ export function Profile() {
           <Input
             type="text"
             placeholder="Логин"
-            onChange={(e) => setLogin(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+              setLogin(e.target.value)
+            }
             icon="EditIcon"
             value={login}
             name="name"
@@ -82,7 +84,9 @@ export function Profile() {
             extraClass="ml-1"
           />
           <PasswordInput
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+              setPassword(e.target.value)
+            }
             value={password}
             name="password"
             icon="EditIcon"

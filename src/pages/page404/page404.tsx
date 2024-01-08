@@ -12,7 +12,7 @@ export function Error404() {
         htmlType="button"
         type="secondary"
         size="large"
-        onClick={() => {
+        onClick={(): void => {
           navigate("/");
         }}
       >

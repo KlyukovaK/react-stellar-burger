@@ -7,7 +7,7 @@ import Ingredient from "../ingredient/ingredient";
 import { TIngredientData } from "../../utils/types/data";
 
 function BurgerIngredients() {
-  const [current, setCurrent] = React.useState("bun");
+  const [current, setCurrent] = React.useState<string>("bun");
 
   const ingredients = useSelector(
     (state) => state.ingredientsDataReducer.ingredients,
@@ -63,7 +63,7 @@ function BurgerIngredients() {
         </h2>
         <ul className={burgerIngredientsStyles.component} ref={refBun}>
           {ingredients?.map(
-            (item: TIngredientData) =>
+            (item) =>
               item.type === "bun" && (
                 <Ingredient itemData={item} key={item._id} aria-hidden />
               ),
@@ -72,7 +72,7 @@ function BurgerIngredients() {
         <h2 className="text text_type_main-medium mb-6 mt-10">Соусы</h2>
         <ul className={burgerIngredientsStyles.component} ref={refSause}>
           {ingredients?.map(
-            (item: TIngredientData) =>
+            (item) =>
               item.type === "sauce" && (
                 <Ingredient itemData={item} key={item._id} />
               ),
@@ -81,7 +81,7 @@ function BurgerIngredients() {
         <h2 className="text text_type_main-medium mb-6 mt-10">Начинка</h2>
         <ul className={burgerIngredientsStyles.component} ref={refFilling}>
           {ingredients?.map(
-            (item: TIngredientData) =>
+            (item) =>
               item.type === "main" && (
                 <Ingredient itemData={item} key={item._id} />
               ),

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import loaderStyle from "./loader.module.css";
 
 export function Loader({ text }: { text: string }) {
@@ -12,6 +11,3 @@ export function Loader({ text }: { text: string }) {
   );
 }
 
-Loader.propTypes = {
-  text: PropTypes.string.isRequired,
-};

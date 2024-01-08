@@ -31,7 +31,7 @@ function App() {
     (state) => state.formAuthReducer,
   );
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     // Возвращаемся к предыдущему пути при закрытии модалки
     navigate(-1);
   };
@@ -45,7 +45,7 @@ function App() {
     dispatch(getDataIngredients());
   }, []);
 
-  const checkResetPassword = () => {
+  const checkResetPassword = (): boolean => {
     if (forgotPasswordSucces && location.pathname === "/reset-password") {
       return true;
     }

@@ -21,7 +21,7 @@ function Ingredient({ itemData }: { itemData: TIngredientData }) {
   const { bun, ingredient } = useSelector((state) => state.ingredientsReducer);
   const allIngredient = [...bun, ...ingredient, ...bun];
 
-  const count = useMemo(() => {
+  const count: number = useMemo(() => {
     const selectIngredients = allIngredient.filter(
       (item) => item._id === itemData._id,
     );

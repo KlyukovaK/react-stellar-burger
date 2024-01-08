@@ -21,7 +21,7 @@ export function HomePage() {
 
   const dispatch = useDispatch();
   // close popup
-  const closePopup = () => {
+  const closePopup = (): void => {
     if (order) {
       dispatch({ type: CLOSE_ORDER });
     } else {
@@ -58,11 +58,6 @@ export function HomePage() {
           <OrderDetails />
         </Modal>
       )}
-      {/* {ingradientDetail && (
-        <Modal text="Детали игридиента" closePopup={closePopup}>
-          <IngredientDetails />
-        </Modal>
-      )} */}
     </>
   );
 }

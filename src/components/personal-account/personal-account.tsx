@@ -3,8 +3,8 @@ import personalAccountStyles from "./personal-account.module.css";
 
 type TPersonalAccount = {
   title: string;
-  children: JSX.Element;
-  onFormSubmit(e: React.SyntheticEvent): void;
+  children: JSX.Element[] | JSX.Element;
+  onFormSubmit(e: React.FormEvent<HTMLFormElement>): void;
 };
 export function PersonalAccount({
   title,

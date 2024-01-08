@@ -9,16 +9,13 @@ function IngredientDetails() {
   const [ingredientDetail, setIngredientDetail] =
     useState<Array<TIngredientData> | null>(null);
   const { ingredients, ingredientRequest, ingredientFaild } = useSelector(
-    (state) =>
-      state.ingredientsDataReducer,
+    (state) => state.ingredientsDataReducer,
   );
 
   const selectIngredient = useCallback(() => {
     if (ingredients) {
       setIngredientDetail(
-        ingredients.filter(
-          (item: TIngredientData) => item._id === ingredientId,
-        ),
+        ingredients.filter((item) => item._id === ingredientId),
       );
     }
   }, [ingredients, ingredientId]);
